@@ -1,0 +1,40 @@
+<div class="row vertical-offset-100 animated fast fadeIn" >
+
+  <div class="col-md-4 col-md-offset-4">
+
+
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1 class="panel-title">Identificate</h1>
+      </div>
+      <div class="panel-body">
+
+  <div *ngIf="mensaje" [ngClass]="{'alert-success': status ,'alert-danger': !status }" class="alert alert-success" role="alert">
+    {{mensaje}}
+  </div>
+
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" accept-charset="UTF-8" role="form">
+          <fieldset>
+            <div class="form-group">
+              <label for="UserName">Nombre de Usuario</label>
+              <input name="UserName" #UserName="ngModel" [(ngModel)]="usuario.UserName" class="form-control" type="text" required>
+              <span class="text-danger" *ngIf="!UserName.valid && UserName.touched">
+              El Nombre de Usuario es obligatorio.
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input name="password" #password="ngModel" [(ngModel)]="usuario.password" class="form-control" type="password" value="" required>
+              <span class="text-danger" *ngIf="!password.valid && password.touched">
+              La contraseña es obligatoria.
+              </span>
+            </div>
+
+            <input [disabled]="!loginForm.form.valid" class="btn btn-lg btn-success btn-block" type="submit" value="Entrar">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

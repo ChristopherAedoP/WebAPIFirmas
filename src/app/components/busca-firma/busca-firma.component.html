@@ -1,0 +1,37 @@
+<div class="animated fast fadeIn">
+
+
+
+  <h1>Busca Firma</h1>
+  <hr>
+
+  <div *ngIf="mensaje" [ngClass]="{'alert-success': status ,'alert-danger': !status }" class="alert alert-success animated fadeIn" role="alert">
+    {{mensaje}}
+  </div>
+
+<form #buscaFirmaForm="ngForm" (ngSubmit)="onSubmit(buscaFirmaForm)" role="form" class="form-inline">
+  <div class="form-group">
+    <label for="lblrut" class="sr-only">RUT</label>
+    <input type="text" readonly class="form-control-plaintext" id="lblrut" value="RUT Firmante :">
+  </div>
+  <div class="form-group mx-sm-3">
+    <label for="txtRut" class="sr-only">RUT</label>
+    <input name="_txtRut" #_txtRut="ngModel" [(ngModel)]="txtRut"
+          type="text" class="form-control" id="_txtRut" placeholder="Ingreser RUT Firmante...">
+    <span class="text-danger" *ngIf="!_txtRut.valid && _txtRut.touched">
+              El rut es obligatorio
+    </span>
+  </div>
+  <!-- <button type="button" class="btn btn-primary">Buscar</button> -->
+  <input [disabled]="!buscaFirmaForm.form.valid" type="submit" class="btn btn-success" value="Buscar" />
+
+</form>
+<br>
+  <div class="form-horizontal" id="firma">
+
+    <img *ngIf="loading" src="/assets/img/ajax-loader.gif" alt="Cargando.." style="margin-top:10px" />
+    <img *ngIf="!loading && firmaImg" id="FirmaImage" [src]="firmaImg" class="img-responsive img-thumbnail animated  fadeIn" />
+
+  </div>
+
+</div>

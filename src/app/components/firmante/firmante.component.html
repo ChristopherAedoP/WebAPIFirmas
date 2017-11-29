@@ -1,0 +1,81 @@
+<div class="containner animated fast fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Lista Firmantes</h1>
+      <hr>
+      <div class="btn-group btn-group-justified well">
+
+        <a class="btn btn-success" [routerLink]="['/addfirmante']">
+        <i class="fa fa-plus"></i> Nuevo Firmante
+    </a>
+      </div>
+      <br><br>
+      <div *ngIf="loading" class="alert alert-warning animated fadeIn" role="alert"> <strong>Cargando..</strong> Por favor espere... </div>
+
+
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">RUT</th>
+            <th scope="col">Nombre</th>
+            <th scope="col" style="width:30%;">Firma</th>
+            <th *ngIf="identity" scope="col">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="animated fadeIn" *ngFor="let firmante of firmantes">
+            <th scope="row">{{firmante.Id}}</th>
+            <td>
+              <a [routerLink]="[ '/updatefirmante', firmante.Id ]" class="badge badge-info">
+                 {{firmante.Rut }}
+              </a>
+            </td>
+            <td>{{firmante.Nombre}}</td>
+
+            <td>
+              <div *ngIf="firmante.IdFirma && firmante.IdFirma > 0">
+                <img src="{{url}}/api/FirmaImage?id={{firmante.IdFirma}}" class="img-rounded img-responsive img-thumbnail" />
+              </div>
+            </td>
+            <td *ngIf="identity">
+              <a [attr.data-firmantename]="firmante.Nombre" [attr.data-firmanteid]="firmante.Id" href="#myModal" data-toggle="modal" data-target="#myModal"
+                class="btn btn-sm btn-danger">
+               X
+              </a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Borrar Firmante</h4>
+        </div> -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Borrar Firmante</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro de eliminar el firmante <strong> <label  class="firmantename"> </label>  </strong>?
+
+          <p class="text-warning"><small>si borras el firmante no podras recuperarlo.</small></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">cerrar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteFirmante()">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
