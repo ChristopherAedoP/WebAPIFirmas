@@ -1,36 +1,33 @@
-
 <div class="animated fast fadeIn">
 
 
 
-<h1>Nuevo Firmante</h1>
-<hr>
-<div *ngIf="mensaje" [ngClass]="{'alert-success': status ,'alert-danger': !status }" class="alert alert-success" role="alert">
-  {{mensaje}}
-</div>
-
-<form #FirmanteForm="ngForm" (ngSubmit)="onSubmit(FirmanteForm)" role="form"  >
-  <div class="form-group">
-    <label for="txtrut">RUT</label>
-    <input #txtrut="ngModel"
-           name="txtrut"
-           [(ngModel)]="firmante.Rut"
-          type="text" class="form-control" id="txtrut" placeholder="Ingrese RUT" required>
-
-    <span class="text-danger" *ngIf="!txtrut.valid && txtrut.touched">
-              El RUT es obligatorio
-    </span>
+  <h1>Nuevo Firmante</h1>
+  <hr>
+  <div *ngIf="mensaje" [ngClass]="{'alert-success': status ,'alert-danger': !status }" class="alert alert-success" role="alert">
+    {{mensaje}}
   </div>
-  <div class="form-group">
-    <label for="txtnombre">Nombre</label>
-    <input #txtnombre="ngModel" name="txtnombre" [(ngModel)]="firmante.Nombre"
-        type="text" class="form-control" id="txtnombre" placeholder="Ingrese Nombre">
 
-    <span class="text-danger" *ngIf="!txtnombre.valid && txtnombre.touched">
-              El Nombre es obligatorio
-    </span>
-  </div>
-  <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
-  <input [disabled]="!FirmanteForm.form.valid" type="submit" class="btn btn-success" value="Crear" />
-</form>
+  <form #FirmanteForm="ngForm" (ngSubmit)="onSubmit(FirmanteForm)" role="form">
+    <div class="form-group">
+      <label for="txtrut">RUT</label>
+      <input #txtrut="ngModel" name="txtrut" [(ngModel)]="firmante.Rut" type="text" class="form-control" id="txtrut" placeholder="Ingrese RUT"
+        required>
+
+      <span class="text-danger" *ngIf="!txtrut.valid && txtrut.touched">
+        El RUT es obligatorio
+      </span>
+    </div>
+    <div class="form-group">
+      <label for="txtnombre">Nombre</label>
+      <input #txtnombre="ngModel" name="txtnombre" [(ngModel)]="firmante.Nombre" type="text" class="form-control" id="txtnombre"
+        placeholder="Ingrese Nombre">
+
+      <span class="text-danger" *ngIf="!txtnombre.valid && txtnombre.touched">
+        El Nombre es obligatorio
+      </span>
+    </div>
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+    <input [disabled]="!FirmanteForm.form.valid" type="submit" class="btn btn-success" value="Crear" />
+  </form>
 </div>

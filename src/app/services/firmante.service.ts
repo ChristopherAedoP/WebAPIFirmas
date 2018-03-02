@@ -4,12 +4,15 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx'; // Map
 import { Observable } from "rxjs/Observable";
 import { Firmante } from '../components/models/firmante';
+import { GLOBAL } from './global';
 
 @Injectable()
 export class FirmanteService {
-  private urlHostAPI = 'http://api.demofirmasimg.cl';
+  private urlHostAPI = '';
 
-  constructor(private _http: Http) { }
+  constructor(private _http: Http) {
+    this.urlHostAPI = GLOBAL.urlAPI;
+  }
 
   getFirmantes() {
 

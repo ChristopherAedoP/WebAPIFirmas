@@ -4,7 +4,6 @@ import { Firmante } from '../models/firmante';
 import { UsuarioService } from '../../services/usuario.service';
 import { GLOBAL } from '../../services/global';
 
-
 @Component({
   selector: 'app-firmante',
   templateUrl: './firmante.component.html'
@@ -17,54 +16,48 @@ export class FirmanteComponent implements OnInit {
   public identity;
   public url: string;
 
-  constructor(private _fs: FirmanteService,
-              private _us: UsuarioService)
+  constructor(
+    private _fs: FirmanteService,
+    private _us: UsuarioService
+  ) // tslint:disable-next-line:one-line
   {
     this.getFirmantes();
     this.token = this._us.getToken();
     this.identity = this._us.getIdentity();
     this.url = GLOBAL.urlAPI;
   }
-  getFirmantes(){
-    this._fs.getFirmantes().subscribe(
-      data => {
-        // console.log('data', data)
-        this.firmantes = data;
-        this.loading = false;
-      }
-    )
+  // tslint:disable-next-line:one-line
+  getFirmantes() {
+    this._fs.getFirmantes().subscribe(data => {
+      // console.log('data', data)
+      this.firmantes = data;
+      this.loading = false;
+    });
   }
   ngOnInit() {
-    $('#myModal').on('show.bs.modal', (event) => {
+    $('#myModal').on('show.bs.modal', event => {
+      const button = $(event.relatedTarget);
 
-      let button = $(event.relatedTarget);
-
-      let firmantename = button.data('firmantename');
+      const firmantename = button.data('firmantename');
       this.id_firmante_delete = button.data('firmanteid');
 
       $('.firmantename').text(firmantename);
-
     });
-
   }
   deleteFirmante() {
-
-    this._fs.deleteFirmante(this.token, this.id_firmante_delete)
-    .subscribe(
+    this._fs.deleteFirmante(this.token, this.id_firmante_delete).subscribe(
       response => {
         console.log(response);
         // if (response) {
-          this.getFirmantes();
+        this.getFirmantes();
         // } else {
         //   alert('Error eliminar firmante');
         // }
-
       },
       error => {
         console.error(<any>error);
         alert('Error en el servidor al eliminar firmante.');
       }
-
     );
   }
 }
